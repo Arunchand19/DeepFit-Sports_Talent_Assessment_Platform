@@ -1,372 +1,455 @@
-# Enhanced Height and Weight Estimation System v4.0
+# DeepFit - AI-Powered Fitness Assessment System
+## Sports Authority of India (SAI) - Digital Fitness Evaluation Platform
 
-## 🚀 Project Overview
+## 🎯 Project Overview
 
-This project represents a comprehensive enhancement of a height and weight estimation system using computer vision and machine learning. The system has been completely redesigned to address critical limitations in the original implementation and provide a professional-grade solution with an enhanced user interface.
+DeepFit is an advanced AI-powered fitness assessment platform developed for the Sports Authority of India (SAI) to revolutionize athlete screening and fitness evaluation. Using cutting-edge computer vision and machine learning technologies, the system eliminates the need for expensive equipment and manual measurements, providing accurate, real-time fitness assessments through a simple webcam.
 
-### 🎯 Key Achievements
+This innovative solution addresses SAI's challenge of conducting large-scale fitness assessments across India by enabling remote, automated evaluation of athletes' physical capabilities. The system provides instant body measurements (height, weight, BMI) and tracks exercise performance (situps, dumbbell curls, vertical jumps) with AI-powered form analysis, making talent identification and fitness monitoring accessible, efficient, and scalable.
 
-- **Enhanced Accuracy**: Significantly improved measurement precision through advanced algorithms
-- **Professional UI**: Modern camera interface with visual positioning guides and real-time feedback
-- **Robust Architecture**: Modular, maintainable code with comprehensive error handling
-- **Scientific Validation**: Rigorous testing framework with detailed performance analysis
-- **Complete Documentation**: Comprehensive setup, usage, and technical documentation
+**Problem Statement:** Traditional fitness assessments require expensive equipment, trained personnel, and physical presence, making it difficult for SAI to evaluate thousands of aspiring athletes across remote areas of India.
 
-### 📊 Performance Metrics
+**Solution:** DeepFit uses AI and computer vision to transform any smartphone or laptop camera into a professional fitness assessment tool, enabling SAI to conduct nationwide talent hunts and fitness evaluations remotely, accurately, and cost-effectively.
 
-Based on comprehensive validation testing:
+### Key Features
 
-- **Height Estimation**: Mean Absolute Error of 2.8cm (within commercial standards)
-- **Weight Estimation**: Mean Absolute Error of 4.2kg (acceptable for consumer applications)
-- **Processing Speed**: Average 152ms per measurement
-- **Success Rate**: 100% detection rate under good conditions
-- **Confidence Scoring**: Advanced uncertainty quantification
+- **📏 Height & Weight Estimation**: AI-based body measurement using single camera
+- **💪 Exercise Tracking**: Real-time tracking of Situps, Dumbbell Curls, and Vertical Jumps
+- **📊 Performance Analytics**: Comprehensive fitness dashboards and progress tracking
+- **🎯 Dynamic Benchmarks**: Personalized fitness goals based on athlete data
+- **👤 User Management**: Secure authentication with profile management
+- **🏆 Leaderboard**: Competitive rankings based on performance metrics
 
 ## 🏗️ System Architecture
 
-### Core Components
+### Technology Stack
 
-1. **Enhanced Pose Detection**: MediaPipe Holistic with improved accuracy settings
-2. **Advanced Depth Estimation**: MiDaS depth model integration
-3. **Camera Calibration**: Robust chessboard-based calibration system
-4. **Anthropometric Modeling**: ML-based weight estimation with multiple features
-5. **Professional UI**: Real-time visual guides and measurement feedback
-6. **Validation Framework**: Comprehensive testing and performance analysis
+**Backend:**
+- Flask (Python Web Framework)
+- MongoDB Atlas (Cloud Database)
+- MediaPipe (Pose Detection)
+- OpenCV (Computer Vision)
+- PyTorch (Deep Learning)
+- Scikit-learn (Machine Learning)
 
-### Technical Stack
+**Frontend:**
+- HTML5, CSS3, JavaScript
+- Responsive Design
+- Real-time Video Processing
 
-- **Computer Vision**: OpenCV, MediaPipe
-- **Deep Learning**: PyTorch, MiDaS depth estimation
-- **Machine Learning**: Scikit-learn, Random Forest models
-- **Data Processing**: NumPy, Pandas
-- **Visualization**: Matplotlib, Seaborn
-- **UI Framework**: Custom OpenCV-based interface
-
-## 📋 Requirements
-
-### System Requirements
-
-- **Operating System**: Windows 10/11, macOS 10.15+, or Ubuntu 18.04+
-- **Python**: 3.8 or higher
-- **Memory**: Minimum 8GB RAM (16GB recommended)
-- **Storage**: 2GB free space
-- **Camera**: USB webcam or built-in camera (1080p recommended)
-- **GPU**: Optional but recommended for faster processing
-
-### Python Dependencies
-
-```
-opencv-python>=4.8.0
-mediapipe>=0.10.0
-torch>=1.13.0
-torchvision>=0.14.0
-numpy>=1.21.0
-pandas>=1.3.0
-scikit-learn>=1.0.0
-matplotlib>=3.5.0
-seaborn>=0.11.0
-scipy>=1.7.0
-pyyaml>=6.0
-joblib>=1.1.0
-```
-
-## 🚀 Installation
-
-### 1. Clone or Download Project
-
-```bash
-# If using git
-git clone <repository-url>
-cd height-weight-estimation
-
-# Or extract the provided project files
-```
-
-### 2. Create Virtual Environment (Recommended)
-
-```bash
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-```
-
-### 3. Install Dependencies
-
-```bash
-# Install all required packages
-pip install -r requirements.txt
-
-# Or install manually:
-pip install opencv-python mediapipe torch torchvision numpy pandas scikit-learn matplotlib seaborn scipy pyyaml joblib
-```
-
-### 4. Verify Installation
-
-```bash
-# Test the installation
-python -c "import cv2, mediapipe, torch; print('Installation successful!')"
-```
-
-## 🎮 Usage
-
-### Quick Start
-
-1. **Run the Main Application**:
-   ```bash
-   python integrated_system.py
-   ```
-
-2. **Camera Calibration** (Recommended for best accuracy):
-   - The system will prompt for calibration on first run
-   - Follow on-screen instructions with a chessboard pattern
-   - Calibration improves measurement accuracy significantly
-
-3. **Real-time Measurement**:
-   - Stand 2-3 meters from the camera
-   - Follow the visual positioning guides
-   - Wait for stable measurements
-   - Press 'S' to save measurements
-
-### Controls
-
-- **'Q'**: Quit application
-- **'S'**: Save current measurement
-- **'R'**: Reset stability buffer
-- **'C'**: Toggle auto-save mode
-- **'K'**: Recalibrate camera
-
-### Camera Setup Tips
-
-1. **Lighting**: Ensure good, even lighting
-2. **Background**: Use a plain, contrasting background
-3. **Distance**: Stand 2-3 meters from camera
-4. **Positioning**: Face camera directly, full body visible
-5. **Stability**: Hold still for 3-5 seconds for best results
+**AI/ML Components:**
+- MiDaS (Depth Estimation)
+- MediaPipe Holistic (Pose Detection)
+- Random Forest (Weight Prediction)
+- YOLO (Object Detection - Optional)
 
 ## 📁 Project Structure
 
 ```
-height-weight-estimation/
-├── README.md                          # This file
-├── requirements.txt                   # Python dependencies
-├── integrated_system.py               # Main application
-├── enhanced_height_weight_estimator.py # Core estimation algorithms
-├── enhanced_ui.py                     # User interface components
-├── test_validation_system.py          # Validation and testing framework
-├── summary_of_limitations.md          # Analysis of original limitations
-├── design_document.md                 # Technical design documentation
-├── todo.md                           # Project development tracking
-├── models/                           # Pre-trained models (auto-generated)
-│   ├── weight_rf_model.pkl
-│   └── weight_scaler.pkl
-├── validation_results/               # Test results and analysis
-│   ├── validation_report.md
-│   ├── performance_analysis.png
-│   ├── accuracy_summary.png
-│   └── test_dataset.csv
-└── camera_calibration.yaml          # Camera calibration data
+HeightAndWeightCalculator/
+│
+├── Backend/                          # Backend application
+│   ├── models/                       # ML models
+│   │   ├── weight_rf_model.pkl      # Weight prediction model
+│   │   ├── weight_scaler.pkl        # Feature scaler
+│   │   └── yolov8n.pt               # YOLO model (optional)
+│   │
+│   ├── logs/                         # Application logs
+│   ├── uploads/                      # User uploaded files
+│   ├── measurements/                 # Measurement data
+│   ├── jump_data/                    # Vertical jump data
+│   ├── validation_results/           # Validation reports
+│   │
+│   ├── .env                          # Environment configuration
+│   ├── app.py                        # Main Flask application
+│   ├── db_config.py                  # Database configuration
+│   ├── dynamic_benchmarks.py         # Benchmark system
+│   │
+│   ├── situp_blueprint.py            # Situp exercise module
+│   ├── dumbbell_blueprint.py         # Dumbbell exercise module
+│   ├── vertical_jump_blueprint.py    # Vertical jump module
+│   ├── advanced_jump_detector.py     # Advanced jump detection
+│   │
+│   ├── integrated_system.py          # Height/Weight estimation
+│   ├── enhanced_ui.py                # UI components
+│   ├── session_manager.py            # Session management
+│   ├── error_logger.py               # Logging system
+│   └── train_model.py                # Model training script
+│
+├── Frontend/                         # Frontend application
+│   ├── templates/                    # HTML templates
+│   │   ├── index.html               # Home page
+│   │   ├── login.html               # Login page
+│   │   ├── signup.html              # Registration page
+│   │   ├── dashboard.html           # User dashboard
+│   │   ├── performance_dashboard.html # Performance metrics
+│   │   ├── Best_Results.html        # Leaderboard
+│   │   ├── index_situp.html         # Situp interface
+│   │   ├── index_dumbbell.html      # Dumbbell interface
+│   │   ├── index_verticaljump.html  # Vertical jump interface
+│   │   └── errors/                  # Error pages
+│   │
+│   └── static/                       # Static assets
+│       ├── css/                      # Stylesheets
+│       ├── js/                       # JavaScript files
+│       └── images/                   # Images
+│
+├── Datasets/                         # Training data
+│   ├── AthleteData.csv              # Athlete benchmark data
+│   └── training_data.csv            # Exercise training data
+│
+└── requirements.txt                  # Python dependencies
 ```
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+
+- Python 3.8 or higher
+- MongoDB Atlas account
+- Webcam/Camera
+- 4GB RAM minimum
+- Windows/Linux/macOS
+
+### Step 1: Clone Repository
+
+```bash
+git clone <repository-url>
+cd HeightAndWeightCalculator
+```
+
+### Step 2: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Configure MongoDB Atlas
+
+1. Create MongoDB Atlas account at https://cloud.mongodb.com/
+2. Create a new cluster named `sih2573`
+3. Get your connection string
+4. Create `.env` file in `Backend/` folder:
+
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+DB_NAME=sih2573
+```
+
+### Step 4: Initialize Database
+
+The application will automatically create these collections:
+- `users` - User accounts
+- `situps` - Situp exercise data
+- `DumbBell` - Dumbbell exercise data
+- `Vertical_Jump` - Vertical jump data
+- `Height and Weight` - Body measurements
+- `Final_Estimated_Height_and_Weight` - Final estimates
+- `Qualified_Results` - Leaderboard data
+- `exercise_sessions` - Session tracking
+- `exercise_results` - Exercise results
+- `height_videos` - Video uploads
+- `measurements` - Additional measurements
+
+### Step 5: Run Application
+
+```bash
+cd Backend
+python app.py
+```
+
+Access the application at: `http://localhost:5000`
+
+## 📖 User Guide
+
+### 1. Registration & Login
+
+1. Navigate to `http://localhost:5000`
+2. Click "Sign Up" to create account
+3. Fill in details and capture profile photo
+4. Login with credentials
+
+### 2. Height & Weight Measurement
+
+1. Go to Dashboard → Height & Weight
+2. Stand 2-3 meters from camera
+3. Ensure full body is visible
+4. System will auto-measure when stable
+5. Press 'S' to save measurement
+6. Press 'F' for final estimate
+
+**Controls:**
+- `S` - Save measurement
+- `F` - Final estimate
+- `R` - Reset
+- `C` - Toggle auto-save
+- `K` - Recalibrate camera
+- `Q` - Quit
+
+### 3. Exercise Tracking
+
+#### Situps
+1. Go to Dashboard → Situps
+2. Click "Start Camera"
+3. Lie down with full body visible
+4. Perform situps (3-minute timer)
+5. Click "Stop" when done
+6. View results in display page
+
+#### Dumbbell Curls
+1. Go to Dashboard → Dumbbell Curls
+2. Click "Start Camera"
+3. Stand with arms visible
+4. Perform curls with both arms
+5. System tracks reps and estimates weight
+6. Click "Stop" when done
+
+#### Vertical Jump
+1. Go to Dashboard → Vertical Jump
+2. Click "Start Camera"
+3. Stand in frame for calibration
+4. Perform vertical jumps
+5. System measures jump height
+6. Click "Stop" when done
+
+### 4. Performance Dashboard
+
+- View all exercise results
+- Compare with benchmarks
+- Track progress over time
+- See personalized goals
+
+### 5. Leaderboard
+
+- View top performers
+- Compare your rankings
+- Filter by exercise type
+- See detailed statistics
 
 ## 🔧 Configuration
 
-### Camera Calibration
+### Camera Settings
 
-For optimal accuracy, calibrate your camera:
-
-1. Print a chessboard pattern (9x6 squares, 25mm square size)
-2. Run calibration: `python integrated_system.py`
-3. Follow on-screen instructions
-4. Capture 15+ images from different angles
-5. Calibration data saved automatically
-
-### Model Parameters
-
-Key parameters can be adjusted in `integrated_system.py`:
-
+Edit in respective blueprint files:
 ```python
-# Measurement stability
-self.stability_threshold = 8          # Frames for stable measurement
-self.stability_tolerance_height = 1.0 # cm tolerance
-self.stability_tolerance_weight = 0.8 # kg tolerance
-
-# Auto-save settings
-self.auto_save_enabled = True
-self.auto_save_cooldown = 10.0        # seconds between auto-saves
+camera.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+camera.set(cv2.CAP_PROP_FPS, 30)
 ```
 
-## 📊 Validation and Testing
+### Exercise Durations
 
-### Running Validation Tests
-
-```bash
-# Run comprehensive validation
-python test_validation_system.py
+Edit in blueprint files:
+```python
+SITUP_DURATION = 180  # 3 minutes
 ```
 
-This generates:
-- Performance metrics and analysis
-- Demographic breakdowns
-- Visualization charts
-- Detailed validation report
+### Benchmark System
 
-### Test Results
+Modify `Datasets/AthleteData.csv` to update benchmark data:
+```csv
+Age,Gender,Height_cm,Weight_kg,Situps_per_min,Vertical_Jump_cm,Dumbbell_Curl_per_min
+25,M,175,70,30,65,25
+```
 
-The validation system tests the model on 200 synthetic subjects with diverse characteristics:
+## 🧪 API Endpoints
 
-- **Demographics**: Multiple genders, ethnicities, body types
-- **Conditions**: Various lighting, distances, pose qualities
-- **Metrics**: MAE, RMSE, R², accuracy levels
-- **Analysis**: Performance by demographic groups
+### Authentication
+- `POST /login` - User login
+- `POST /signup` - User registration
+- `GET /logout` - User logout
 
-## 🎨 User Interface Features
+### Measurements
+- `POST /upload_exercise_video` - Upload exercise video
+- `GET /height_weight_system` - Start height/weight measurement
+- `GET /performance_dashboard` - View performance metrics
 
-### Visual Positioning Guides
+### Exercise APIs
+- `GET /situp/start_camera` - Start situp tracking
+- `GET /situp/stop_camera` - Stop situp tracking
+- `GET /situp/get_stats` - Get current stats
+- `POST /api/submit_situp_result` - Submit results
 
-- **Body Zone Overlays**: Visual guides for optimal positioning
-- **Distance Indicators**: Real-time feedback on camera distance
-- **Alignment Guides**: Center lines and crosshairs for proper alignment
-- **Status Indicators**: Clear feedback on detection quality
+- `GET /dumbbell/start_camera` - Start dumbbell tracking
+- `GET /dumbbell/stop_camera` - Stop dumbbell tracking
+- `GET /dumbbell/get_stats` - Get current stats
+- `POST /api/submit_dumbbell_result` - Submit results
 
-### Real-time Feedback
+- `GET /vertical_jump/start_camera` - Start jump tracking
+- `GET /vertical_jump/stop_camera` - Stop jump tracking
+- `GET /vertical_jump/get_stats` - Get current stats
+- `POST /api/submit_vertical_jump_result` - Submit results
 
-- **Detection Status**: Human/partial/good position indicators
-- **Measurement Panel**: Live height, weight, BMI, and confidence
-- **Progress Indicators**: Stability and measurement progress
-- **Control Panel**: Available keyboard shortcuts and options
+### Benchmarks
+- `GET /api/dynamic_benchmarks?email=<email>` - Get personalized benchmarks
+- `POST /api/match_athlete` - Find matching athlete profile
 
-### Professional Aesthetics
+### Leaderboard
+- `GET /api/best_results` - Get leaderboard data
+- `POST /api/save_qualified_results` - Save to leaderboard
 
-- **Modern Design**: Clean, professional interface
-- **Smooth Animations**: Pulsing indicators and progress animations
-- **Color Coding**: Intuitive color scheme for different states
-- **Responsive Layout**: Adapts to different screen sizes
+## 🔐 Security Features
 
-## 🔬 Technical Details
+- Password hashing with bcrypt
+- Session management with secure cookies
+- CORS protection
+- Input validation
+- SQL injection prevention (NoSQL)
+- XSS protection
 
-### Height Estimation Algorithm
+## 📊 Data Models
 
-1. **Pose Detection**: MediaPipe Holistic for 33 3D landmarks
-2. **Camera Calibration**: Intrinsic parameter correction
-3. **Depth Estimation**: MiDaS neural network for monocular depth
-4. **Scale Estimation**: Anthropometric references and facial features
-5. **3D Reconstruction**: Convert 2D landmarks to 3D coordinates
-6. **Height Calculation**: Multiple measurement methods with fusion
+### User Schema
+```javascript
+{
+  name: String,
+  age: Number,
+  gender: String,
+  place: String,
+  phone: String,
+  email: String (unique),
+  password: Binary (hashed),
+  photo: String (base64),
+  created_at: DateTime
+}
+```
 
-### Weight Estimation Algorithm
+### Exercise Result Schema
+```javascript
+{
+  user_email: String,
+  reps_completed: Number,
+  form_quality: Number,
+  timer_time: String,
+  submission_time: DateTime,
+  created_at: DateTime
+}
+```
 
-1. **Feature Extraction**: 20+ anthropometric measurements
-2. **Body Composition**: Shoulder width, hip ratio, torso proportions
-3. **Machine Learning**: Random Forest regression model
-4. **Gender Adaptation**: Gender-specific anthropometric models
-5. **Uncertainty Quantification**: Confidence intervals and error bounds
+### Height & Weight Schema
+```javascript
+{
+  user_email: String,
+  height_cm: Number,
+  weight_kg: Number,
+  confidence_score: Number,
+  uncertainty_height: Number,
+  uncertainty_weight: Number,
+  timestamp: DateTime,
+  bmi: Number
+}
+```
 
-### Accuracy Limitations
+## 🎓 AI/ML Models
 
-While the system achieves significant improvements, fundamental limitations remain:
+### 1. Height Estimation
+- **Method**: MediaPipe Pose + Depth Estimation
+- **Accuracy**: ±2-3 cm
+- **Input**: Single RGB image
+- **Output**: Height in cm
 
-1. **Monocular Depth**: Single camera cannot determine absolute scale perfectly
-2. **Pose Estimation**: Inherent ±2-3cm error in keypoint localization
-3. **Individual Variation**: Body density varies ±15% between individuals
-4. **Environmental Factors**: Lighting and positioning affect accuracy
+### 2. Weight Estimation
+- **Model**: Random Forest Regressor
+- **Features**: Body proportions, height, anthropometric ratios
+- **Accuracy**: ±3-5 kg
+- **Training Data**: 1000+ samples
 
-**Note**: 98% accuracy is scientifically impossible with single-camera systems. The enhanced system achieves commercial-grade accuracy within realistic expectations.
+### 3. Exercise Detection
+- **Situps**: Angle-based detection (shoulder-hip-knee)
+- **Dumbbell**: Elbow angle tracking
+- **Vertical Jump**: Pose tracking + height calculation
+
+### 4. Benchmark Matching
+- **Algorithm**: K-Nearest Neighbors
+- **Features**: Age, gender, height, weight
+- **Dataset**: AthleteData.csv
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Camera Not Working
+```bash
+# Check camera access
+python -c "import cv2; print(cv2.VideoCapture(0).isOpened())"
+```
 
-1. **Camera Not Detected**:
-   - Check camera permissions
-   - Try different camera indices (0, 1, 2...)
-   - Restart application
+### MongoDB Connection Failed
+1. Check `.env` file exists in `Backend/` folder
+2. Verify MongoDB URI is correct
+3. Check network connectivity
+4. Whitelist IP in MongoDB Atlas (0.0.0.0/0 for testing)
 
-2. **Poor Detection**:
-   - Improve lighting conditions
-   - Check camera distance (2-3 meters)
-   - Ensure full body is visible
-   - Use plain background
+### Module Not Found
+```bash
+pip install -r requirements.txt --upgrade
+```
 
-3. **Calibration Fails**:
-   - Print chessboard pattern correctly
-   - Ensure pattern is flat and well-lit
-   - Capture from multiple angles
-   - Check pattern dimensions (9x6 squares)
+### Port Already in Use
+```bash
+# Change port in app.py
+app.run(debug=True, port=5001)
+```
 
-4. **Low Accuracy**:
-   - Complete camera calibration
-   - Follow positioning guides carefully
-   - Wait for stable measurements
-   - Check environmental conditions
+## 📈 Performance Optimization
 
-### Performance Optimization
+- Use GPU for PyTorch models (if available)
+- Reduce camera resolution for faster processing
+- Enable model caching
+- Use connection pooling for MongoDB
+- Implement lazy loading for ML models
 
-1. **GPU Acceleration**:
-   - Install CUDA-compatible PyTorch
-   - Verify GPU detection: `torch.cuda.is_available()`
+## 🤝 Contributing
 
-2. **Memory Usage**:
-   - Close other applications
-   - Reduce camera resolution if needed
-   - Monitor system resources
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
 
-3. **Processing Speed**:
-   - Use GPU if available
-   - Reduce model complexity if needed
-   - Optimize camera settings
+## 📝 License
 
-## 📈 Future Improvements
+This project is developed for educational purposes.
 
-### Potential Enhancements
+## 👥 Team
 
-1. **Multi-Camera Setup**: Stereo vision for improved depth accuracy
-2. **Advanced ML Models**: Deep learning for weight estimation
-3. **Real-time Training**: Adaptive models based on user feedback
-4. **Mobile Integration**: Smartphone app development
-5. **Cloud Processing**: Server-based computation for better accuracy
-
-### Research Directions
-
-1. **Anthropometric Databases**: Larger, more diverse training datasets
-2. **Sensor Fusion**: Integration with other measurement devices
-3. **Temporal Modeling**: Video-based measurement averaging
-4. **Personalization**: User-specific calibration and adaptation
-
-## 📄 License and Credits
-
-### Original Work Enhancement
-
-This project enhances an existing height and weight estimation system by addressing critical limitations and implementing professional-grade improvements.
-
-### Dependencies
-
-- **MediaPipe**: Google's pose estimation framework
-- **MiDaS**: Intel's monocular depth estimation
-- **OpenCV**: Computer vision library
-- **PyTorch**: Deep learning framework
-- **Scikit-learn**: Machine learning library
-
-### Acknowledgments
-
-- MediaPipe team for robust pose estimation
-- Intel ISL for MiDaS depth estimation
-- OpenCV community for computer vision tools
-- Scientific community for anthropometric research
+Developed for Smart India Hackathon 2024
+**Problem Statement by:** Sports Authority of India (SAI)
+**Category:** Smart Education & Sports
+**Solution:** AI-powered contactless fitness assessment system
 
 ## 📞 Support
 
-For technical support or questions:
+For issues and questions:
+- Check troubleshooting section
+- Review console logs
+- Verify MongoDB Atlas connection
+- Ensure all dependencies are installed
 
-1. Check the troubleshooting section
-2. Review the validation report for performance expectations
-3. Ensure proper installation and setup
-4. Verify camera and environmental conditions
+## 🔄 Version History
+
+- **v1.0.0** - Initial release with core features
+- **v1.1.0** - Added MongoDB Atlas integration
+- **v1.2.0** - Enhanced exercise tracking
+- **v1.3.0** - Added dynamic benchmarks
+- **v1.4.0** - Performance dashboard improvements
+
+## 🎯 Future Enhancements
+
+- [ ] Mobile app integration
+- [ ] Multi-user video sessions
+- [ ] Advanced analytics with ML insights
+- [ ] Social features and challenges
+- [ ] Integration with fitness wearables
+- [ ] Nutrition tracking
+- [ ] AI-powered form correction
+- [ ] Voice commands
+
+## 📚 References
+
+- MediaPipe: https://google.github.io/mediapipe/
+- OpenCV: https://opencv.org/
+- Flask: https://flask.palletsprojects.com/
+- MongoDB: https://www.mongodb.com/
 
 ---
 
-**Note**: This system provides research-grade implementation with commercial-level accuracy expectations. While 98% accuracy is not achievable with single-camera systems due to fundamental physical limitations, the enhanced implementation provides reliable measurements within acceptable error margins for consumer applications.
-
+**Built with ❤️ for Smart India Hackathon 2024**
