@@ -1,0 +1,539 @@
+{% extends "base.html" %}
+
+{% block title %}Height & Weight Measurement - DeepFit{% endblock %}
+
+{% block content %}
+<div class="measurement-page">
+    <div class="row g-4">
+        <!-- Video Feed Section -->
+        <div class="col-12 col-lg-8">
+            <div class="card glass mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0 d-flex align-items-center">
+                        <i class="fas fa-camera me-2"></i> Camera Feed
+                    </h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="video-container">
+                        <video id="videoFeed" autoplay playsinline class="img-fluid"></video>
+                        <div class="measurement-overlay">
+                            <div class="position-guide">
+                                <div class="guide-text">Stand within the frame</div>
+                            </div>
+                            <div class="measurements-display" style="display: none;">
+                                <div class="measurement height">
+                                    <i class="fas fa-ruler-vertical me-2"></i>
+                                    <span class="value">0</span> cm
+                                </div>
+                                <div class="measurement weight">
+                                    <i class="fas fa-weight me-2"></i>
+                                    <span class="value">0</span> kg
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between align-items-stretch">
+                        <button class="btn btn-primary flex-grow-1" id="startHeightWeight">
+                            <i class="fas fa-ruler-combined me-2"></i> Height & Weight Analysis
+                        </button>
+                        <button class="btn btn-outline-light flex-grow-1" id="startMeasurement">
+                            <i class="fas fa-play me-2"></i> Camera Preview
+                        </button>
+                        <button class="btn btn-outline-light flex-grow-1" id="captureMeasurement" disabled>
+                            <i class="fas fa-save me-2"></i> Save Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions and Status Section -->
+        <div class="col-12 col-lg-4">
+            <div class="card glass mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0 d-flex align-items-center">
+                        <i class="fas fa-info-circle me-2"></i> Instructions
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="status-indicators">
+                        <div class="status-item" id="humanDetected">
+                            <i class="fas fa-user"></i>
+                            <span>Human Detection</span>
+                            <div class="status-light"></div>
+                        </div>
+                        <div class="status-item" id="position">
+                            <i class="fas fa-arrows-alt"></i>
+                            <span>Correct Position</span>
+                            <div class="status-light"></div>
+                        </div>
+                        <div class="status-item" id="stability">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Stability</span>
+                            <div class="status-light"></div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h5>Steps to Follow:</h5>
+                    <ol class="instruction-steps">
+                        <li>Stand 2-3 meters away from the camera</li>
+                        <li>Ensure your full body is visible</li>
+                        <li>Stand straight with arms at your sides</li>
+                        <li>Stay still for accurate measurement</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="card glass">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-history"></i> Recent Measurements
+                    </h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="measurement-history">
+                        <!-- History items will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.measurement-page {
+    padding-top: 20px;
+}
+
+.video-container {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.measurement-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.position-guide {
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    width: 60%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 20px;
+}
+
+.guide-text {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.measurements-display {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.measurement {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.measurement i {
+    width: 25px;
+    color: var(--primary-color);
+}
+
+.status-indicators {
+    margin-bottom: 20px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.status-item i {
+    width: 30px;
+    color: var(--primary-color);
+}
+
+.status-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #dc3545;
+    margin-left: auto;
+    transition: background-color 0.3s;
+}
+
+.status-item.active .status-light {
+    background: #28a745;
+}
+
+.instruction-steps {
+    padding-left: 20px;
+}
+
+.instruction-steps li {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.measurement-history {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--glass-border);
+    transition: var(--transition-speed);
+}
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-item .date {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.history-item .measurements {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.history-item .value {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+#startHeightWeight {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border: none;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+    transition: all 0.3s ease;
+}
+
+#startHeightWeight:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+}
+
+#startHeightWeight:disabled {
+    opacity: 0.7;
+    transform: none;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.2);
+}
+
+.card-footer .d-flex {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card-footer .btn {
+    flex: 1;
+    min-width: 150px;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/notification-system.js') }}"></script>
+<script src="{{ url_for('static', filename='js/completion-monitor.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('videoFeed');
+    const startButton = document.getElementById('startMeasurement');
+    const captureButton = document.getElementById('captureMeasurement');
+    const heightWeightButton = document.getElementById('startHeightWeight');
+    const measurementsDisplay = document.querySelector('.measurements-display');
+    const statusItems = {
+        humanDetected: document.getElementById('humanDetected'),
+        position: document.getElementById('position'),
+        stability: document.getElementById('stability')
+    };
+
+    // Mock measurement data for demonstration
+    let isProcessing = false;
+    let measurements = {
+        height: 0,
+        weight: 0
+    };
+
+    // Height & Weight Analysis button handler
+    heightWeightButton.addEventListener('click', async function() {
+        try {
+            // Show loading state
+            heightWeightButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Starting Analysis...';
+            heightWeightButton.disabled = true;
+            
+            // Show progress notification
+            const progressNotification = notificationSystem.showProgress(
+                'Starting Height & Weight Analysis',
+                [
+                    'Initializing camera system',
+                    'Loading AI models',
+                    'Starting measurement process',
+                    'Processing measurements',
+                    'Generating final results'
+                ]
+            );
+            
+            // Update progress steps
+            notificationSystem.updateProgress(progressNotification, 0, 5);
+            
+            // Call the height weight system API
+            const response = await fetch('/height_weight_system', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'same-origin'
+            });
+            
+            const result = await response.json();
+            
+            if (result.status === 'success') {
+                // Update progress
+                notificationSystem.updateProgress(progressNotification, 1, 5);
+                
+                // Show success message
+                notificationSystem.show('Camera system started successfully! Follow the on-screen instructions.', 'success');
+                
+                setTimeout(() => {
+                    notificationSystem.updateProgress(progressNotification, 2, 5);
+                }, 2000);
+                
+                // Show instructions
+                setTimeout(() => {
+                    notificationSystem.show('Stand 2-3 meters from camera with full body visible. Hold still for accurate measurements.', 'info', 8000);
+                }, 3000);
+                
+                // Monitor for completion and redirect using the new system
+                setTimeout(() => {
+                    notificationSystem.updateProgress(progressNotification, 3, 5);
+                    // Use the new completion monitor
+                    window.completionMonitor.startMonitoring(progressNotification);
+                }, 15000); // Start checking after 15 seconds
+                
+            } else {
+                throw new Error(result.message || 'Failed to start analysis');
+            }
+            
+        } catch (error) {
+            console.error('Error starting height weight analysis:', error);
+            notificationSystem.show('Error starting analysis: ' + error.message, 'error');
+            
+            // Reset button
+            heightWeightButton.innerHTML = '<i class="fas fa-ruler-combined"></i> Height & Weight Analysis';
+            heightWeightButton.disabled = false;
+        }
+    });
+    
+    // Function to check for analysis completion
+    let checkCount = 0;
+    async function checkForCompletion(progressNotification) {
+        try {
+            checkCount++;
+            const response = await fetch('/api/get_latest_measurement');
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                // Check if this is a recent final estimate (within last 2 minutes)
+                const dataTimestamp = new Date(result.data.timestamp);
+                const now = new Date();
+                const timeDiff = (now - dataTimestamp) / 1000; // seconds
+                
+                if (timeDiff < 120) { // Within 2 minutes
+                    // Analysis completed
+                    notificationSystem.updateProgress(progressNotification, 4, 5);
+                    
+                    setTimeout(() => {
+                        notificationSystem.updateProgress(progressNotification, 5, 5);
+                        notificationSystem.remove(progressNotification);
+                        
+                        // Show completion message
+                        notificationSystem.show('Analysis complete! Redirecting to results dashboard...', 'success');
+                        
+                        setTimeout(() => {
+                            window.location.href = '/performance_dashboard';
+                        }, 2000);
+                    }, 1000);
+                    return;
+                }
+            }
+            
+            // Continue checking for up to 5 minutes (60 checks)
+            if (checkCount < 60) {
+                setTimeout(() => checkForCompletion(progressNotification), 5000);
+            } else {
+                // Timeout - redirect anyway
+                notificationSystem.remove(progressNotification);
+                notificationSystem.show('Analysis may be complete. Redirecting to dashboard...', 'info');
+                setTimeout(() => {
+                    window.location.href = '/performance_dashboard';
+                }, 3000);
+            }
+        } catch (error) {
+            // Continue checking on error
+            if (checkCount < 60) {
+                setTimeout(() => checkForCompletion(progressNotification), 5000);
+            }
+        }
+    }
+
+    startButton.addEventListener('click', async function() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            startButton.disabled = true;
+            startMeasurementProcess();
+        } catch (err) {
+            console.error('Error accessing camera:', err);
+            FlashMessage.show('Error accessing camera. Please check permissions.', 'danger');
+        }
+    });
+
+    function startMeasurementProcess() {
+        isProcessing = true;
+        measurementsDisplay.style.display = 'block';
+        
+        // Simulate detection process
+        setTimeout(() => updateStatus('humanDetected', true), 1000);
+        setTimeout(() => updateStatus('position', true), 2000);
+        setTimeout(() => updateStatus('stability', true), 3000);
+        setTimeout(simulateMeasurements, 4000);
+    }
+
+    function updateStatus(status, active) {
+        statusItems[status].classList.toggle('active', active);
+    }
+
+    function simulateMeasurements() {
+        const heightElem = document.querySelector('.measurement.height .value');
+        const weightElem = document.querySelector('.measurement.weight .value');
+        
+        // Simulate measurement updates
+        let height = 165;
+        let weight = 65;
+        
+        const interval = setInterval(() => {
+            height += Math.random() * 2 - 1;
+            weight += Math.random() * 0.4 - 0.2;
+            
+            heightElem.textContent = height.toFixed(1);
+            weightElem.textContent = weight.toFixed(1);
+            
+            measurements.height = height;
+            measurements.weight = weight;
+        }, 200);
+
+        // Enable capture button after 3 seconds
+        setTimeout(() => {
+            clearInterval(interval);
+            captureButton.disabled = false;
+            FlashMessage.show('Measurements ready! Click Save to store results.', 'success');
+        }, 3000);
+    }
+
+    captureButton.addEventListener('click', function() {
+        // Save measurements
+        const historyItem = createHistoryItem(measurements);
+        document.querySelector('.measurement-history').insertAdjacentHTML('afterbegin', historyItem);
+        
+        FlashMessage.show('Measurements saved successfully!', 'success');
+        resetMeasurement();
+    });
+    
+    // Reset Height & Weight button when other operations complete
+    function resetHeightWeightButton() {
+        heightWeightButton.innerHTML = '<i class="fas fa-ruler-combined"></i> Height & Weight Analysis';
+        heightWeightButton.disabled = false;
+    }
+
+    function createHistoryItem(measurements) {
+        const date = new Date().toLocaleString();
+        return `
+            <div class="history-item animate__animated animate__fadeIn">
+                <div class="date">
+                    <i class="far fa-clock"></i> ${date}
+                </div>
+                <div class="measurements">
+                    <div>
+                        <i class="fas fa-ruler-vertical"></i>
+                        <span class="value">${measurements.height.toFixed(1)}</span> cm
+                    </div>
+                    <div>
+                        <i class="fas fa-weight"></i>
+                        <span class="value">${measurements.weight.toFixed(1)}</span> kg
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function resetMeasurement() {
+        isProcessing = false;
+        startButton.disabled = false;
+        captureButton.disabled = true;
+        measurementsDisplay.style.display = 'none';
+        
+        Object.keys(statusItems).forEach(key => {
+            updateStatus(key, false);
+        });
+
+        if (video.srcObject) {
+            video.srcObject.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+        }
+        
+        resetHeightWeightButton();
+    }
+});
+</script>
+{% endblock %}
