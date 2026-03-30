@@ -11,6 +11,14 @@ This innovative solution addresses SAI's challenge of conducting large-scale fit
 
 **Solution:** DeepFit uses AI and computer vision to transform any smartphone or laptop camera into a professional fitness assessment tool, enabling SAI to conduct nationwide talent hunts and fitness evaluations remotely, accurately, and cost-effectively.
 
+<img width="1920" height="922" alt="Screenshot 2025-09-18 130234" src="https://github.com/user-attachments/assets/b960c0aa-2986-4696-b0a6-5ae9a174c346" />
+
+<img width="1920" height="930" alt="Screenshot 2025-09-17 181657" src="https://github.com/user-attachments/assets/085edf66-3097-4294-b754-fbc0eb3aa8ce" />
+
+<img width="1398" height="913" alt="Screenshot 2025-09-18 132747" src="https://github.com/user-attachments/assets/d560f4af-3e57-41b4-ad03-21271e7e6a3d" />
+
+
+
 ### Key Features
 
 - **📏 Height & Weight Estimation**: AI-based body measurement using single camera
