@@ -1,6 +1,9 @@
 # DeepFit - AI-Powered Fitness Assessment System
 ## Sports Authority of India (SAI) - Digital Fitness Evaluation Platform
 
+```text
+DeepFit_Documentation.pdf - available in the Repository Files section.
+```
 ## 🎯 Project Overview
 
 DeepFit is an advanced AI-powered fitness assessment platform developed for the Sports Authority of India (SAI) to revolutionize athlete screening and fitness evaluation. Using cutting-edge computer vision and machine learning technologies, the system eliminates the need for expensive equipment and manual measurements, providing accurate, real-time fitness assessments through a simple webcam.
